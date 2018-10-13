@@ -16,3 +16,62 @@ gst-launch-1.0 -v v4l2src device=/dev/video0 ! omxh264enc ! h264parse ! rtph264p
 
 #Receiver
 gst-launch-1.0 -e -v udpsrc port=6030 ! application/x-rtp, payload=96 ! rtpjitterbuffer ! rtph264depay ! h264parse ! avdec_h264 ! fpsdisplaysink sync=false text-overlay=false
+
+Systemctl
+----------
+systemcrl
+
+
+Uart
+-----
+to enable uart go to /boot/config.txt and set enable_uart=1
+
+to cheak uart connect tx to rx and writh the following 
+
+			#!/usr/bin/env python
+
+
+			import time
+			import serial
+
+
+			ser = serial.Serial(
+
+			port='/dev/ttyAMA0',
+			baudrate =9600 ,
+			parity=serial.PARITY_NONE,
+			stopbits=serial.STOPBITS_ONE,
+			bytesize=serial.EIGHTBITS,
+			timeout=1)
+
+			counter=0
+
+
+			while 1:
+					ser.write('Write counter: %d \n'%(counter))
+					time.sleep(1)
+					x=ser.read(100)
+					print x
+					counter += 1
+
+test TCP connection
+--------------------
+use putty and telnet
+
+
+ser2net
+-------
+toturial : http://techtinkering.com/2013/04/02/connecting-to-a-remote-serial-port-over-tcpip/
+
+
+using git in windows and nothpad++
+-----------------------------------
+
+tutorial : https://webdeveloperankitakulkarni.wordpress.com/2013/10/19/git-with-notepad/
+
+
+Qv4L2
+-------
+qv4l2 --device=/dev/video0 //test the camera
+
+
