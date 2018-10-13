@@ -1,1 +1,18 @@
-sdfsdf
+superviser
+-----------
+
+toturial : https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-supervisor-on-ubuntu-and-debian-vps
+
+supervisorctl 
+
+
+
+Gstreamer
+----------
+
+#Sender
+gst-launch-1.0 -v v4l2src device=/dev/video0 ! omxh264enc ! h264parse ! rtph264pay ! udpsink host=192.168.0.102 port=6030
+
+
+#Receiver
+gst-launch-1.0 -e -v udpsrc port=6030 ! application/x-rtp, payload=96 ! rtpjitterbuffer ! rtph264depay ! h264parse ! avdec_h264 ! fpsdisplaysink sync=false text-overlay=false
