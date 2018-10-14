@@ -95,3 +95,4 @@ export PATH=/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/s
   python -m SimpleHTTPServer 8080
 
 find / -name "dir-name-here"
+ cd /home/pi/ovpns
