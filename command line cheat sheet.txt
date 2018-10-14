@@ -14,7 +14,7 @@ Gstreamer
 ----------
 
 #Sender
-gst-launch-1.0 -v v4l2src device=/dev/video0 ! omxh264enc ! h264parse ! rtph264pay ! udpsink host=192.168.0.102 port=6030
+gst-launch-1.0 -v v4l2src device=/dev/video0 ! omxh264enc ! h264parse ! rtph264pay ! udpsink host=239.1.1.100 port=7000
 
 
 #Receiver
@@ -78,3 +78,20 @@ Qv4L2
 qv4l2 --device=/dev/video0 //test the camera
 
 
+
+export PATH=/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+--------
+ ps aux | grep ser2net
+ 
+ 
+ openVPN
+ --------
+ tutorial ; https://www.youtube.com/watch?v=WA7QTM9hovQ
+ 
+ pivpn add
+ 
+  python -m SimpleHTTPServer 8080
+
+find / -name "dir-name-here"
