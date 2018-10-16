@@ -122,7 +122,13 @@ find / -name "dir-name-here"
 
 
 
-
+git
+----
+ 
+to add the file -- git add .
+to commit  -- git commit -m ""
+git push
+ 
 ---------------eclipse---Gstreamer -----------
 
 how to add gstreamer to eclipse
