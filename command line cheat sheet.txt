@@ -13,12 +13,32 @@ tutorial : https://www.digitalocean.com/community/tutorials/how-to-use-systemctl
 Gstreamer
 ----------
 
+https://www.technomancy.org/gstreamer/scaling-a-video/
+
 #Sender
 gst-launch-1.0 -v v4l2src device=/dev/video0 ! omxh264enc ! h264parse ! rtph264pay ! udpsink host=239.1.1.100 port=7000
 
 
 #Receiver
-gst-launch-1.0 -e -v udpsrc port=6030 ! application/x-rtp, payload=96 ! rtpjitterbuffer ! rtph264depay ! h264parse ! avdec_h264 ! fpsdisplaysink sync=false text-overlay=false
+gst-launch-1.0 -e -v udpsrc port=7000 ! application/x-rtp, payload=96 ! rtpjitterbuffer ! rtph264depay ! h264parse ! avdec_h264 ! fpsdisplaysink sync=false text-overlay=false
+
+RTCP
+-------
+reaciver:
+gst-launch-1.0 -vvv tcpclientsrc host=192.168.1.8 port=7000  ! gdpdepay !  rtph264depay ! h264parse  ! avdec_h264 ! videoconvert ! glimagesink  sync=false 
+
+sender:
+gst-launch-1.0 -e v4l2src !  omxh264enc ! h264parse ! rtph264pay ! gdppay ! tcpserversink host=0.0.0.0 port=7000 recover-policy=keyframe sync-method=latest-keyframe
+
+
+final_version
+--------------
+gst-launch-1.0 -e v4l2src ! 'video/x-raw, width=640, hight=480 ,framerate =30/1 bitrate = 15000' ! queue ! videoconvert ! omxh264enc ! rtph264pay pt=96 ! udpsink host =0.0.0.0 port=7000 
+
+
+
+install : apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools
+
 
 Systemctl
 ----------
@@ -64,7 +84,16 @@ use putty and telnet
 
 ser2net
 -------
-toturial : http://techtinkering.com/2013/04/02/connecting-to-a-remote-serial-port-over-tcpip/
+tutorial : http://techtinkering.com/2013/04/02/connecting-to-a-remote-serial-port-over-tcpip/
+tutorial : https://diyprojects.io/ser2net-gateway-series-usb-to-ethernet-test-on-rflink-with-domoticz/#.W8TSYXUzbAg
+
+install : apt-get install ser2net
+
+To know the status of the service, run :  sudo /etc/init.d/ser2net status
+
+Open the configuration file :  sudo nano /etc/ser2net.conf
+
+
 
 
 using git in windows and nothpad++
@@ -96,3 +125,30 @@ export PATH=/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/s
 
 find / -name "dir-name-here"
  cd /home/pi/ovpns
+
+
+
+
+
+
+Find the Raspberry Pi's IP address without a keyboard plugged into the Pi
+---------------------------
+https://angryip.org/download/#windows
+
+
+=======
+
+
+git
+----
+ 
+to add the file -- git add .
+to commit  -- git commit -m ""
+git push
+ 
+---------------eclipse---Gstreamer -----------
+
+how to add gstreamer to eclipse
+https://superuser.com/questions/697958/integrate-gstreamer-with-eclipse-ide
+https://github.com/MDHSRobotics/TeamWiki/wiki/Creating-a-C---GStreamer-project-in-Eclipse
+>>>>>>> .theirs
