@@ -37,6 +37,11 @@ gst-launch-1.0 -e v4l2src ! 'video/x-raw, width=640, hight=480 ,framerate =30/1 
 
 
 
+with saving file
+-----------------
+
+
+
 install : apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools
 
 
@@ -130,6 +135,14 @@ find / -name "dir-name-here"
 
 
 
+stsemed
+-------
+
+sudo systemctl list-unit-files | grep ser2net
+sudo systemctl disable application.service
+sudo systemctl enable application.service
+
+
 
 Find the Raspberry Pi's IP address without a keyboard plugged into the Pi
 ---------------------------
@@ -146,9 +159,57 @@ to add the file -- git add .
 to commit  -- git commit -m ""
 git push
  
+
+
+Samba
+------
+
+tutorial: https://www.raspberrypi.org/magpi/samba-file-server/
+
+
+ip drone
+---------
+
+
+i2c
+----
+tutorial - https://learn.sparkfun.com/tutorials/raspberry-pi-spi-and-i2c-tutorial/all
+i2cdetect -y 1
+
+import smbus
+import time
+bus = SMBus(1)
+address = 7
+while True:
+    try:
+        rep =bus.read_i2c_block_data(address,0)
+    except:
+        continue
+    string = ""
+    for i in range(0,4):
+        string += chr(rep[i])
+    print string
+ time.sleep(1)
+
+
+ronen phone
+------------
+0522761656
+
+Pixy
+-----
+
+Tutorial : http://ardupilot.org/copter/docs/precision-landing-with-irlock.html
+install pixy IDE : https://pixycam.com/downloads-pixy1/
+install pixy freamwork : http://cmucam.org/projects/cmucam5/wiki/Uploading_New_Firmware
+
+
 ---------------eclipse---Gstreamer -----------
 
 how to add gstreamer to eclipse
 https://superuser.com/questions/697958/integrate-gstreamer-with-eclipse-ide
 https://github.com/MDHSRobotics/TeamWiki/wiki/Creating-a-C---GStreamer-project-in-Eclipse
 >>>>>>> .theirs
+
+
+sudo raspi-config
